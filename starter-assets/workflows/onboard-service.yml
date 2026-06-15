@@ -1,0 +1,42 @@
+name: Onboard Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: Service project name
+        required: true
+      spec_url:
+        description: Raw HTTPS URL for the OpenAPI document
+        required: true
+      spec_path:
+        description: Repo-relative path to the local spec file
+        required: true
+      domain:
+        description: Optional business domain label
+        required: false
+      requester_email:
+        description: Optional requester email for audit context
+        required: false
+
+jobs:
+  onboard:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run starter onboarding flow
+        uses: ./starter-assets/actions/onboard-service
+        with:
+          project-name: ${{ inputs.project_name }}
+          spec-url: ${{ inputs.spec_url }}
+          spec-path: ${{ inputs.spec_path }}
+          domain: ${{ inputs.domain }}
+          requester-email: ${{ inputs.requester_email }}
+          postman-api-key: ${{ secrets.POSTMAN_API_KEY }}
+          postman-access-token: ${{ secrets.POSTMAN_ACCESS_TOKEN }}
+          github-token: ${{ github.token }}

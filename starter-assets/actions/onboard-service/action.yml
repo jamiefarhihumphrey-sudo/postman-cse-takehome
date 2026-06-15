@@ -1,0 +1,41 @@
+name: exercise-onboard-service
+description: Starter composite action for onboarding a service into Postman.
+inputs:
+  project-name:
+    description: Service project name used across the onboarding flow.
+    required: true
+  spec-url:
+    description: Raw URL for the OpenAPI document.
+    required: true
+  spec-path:
+    description: Repo-relative path to the OpenAPI document.
+    required: true
+  domain:
+    description: Optional business domain label.
+    required: false
+  requester-email:
+    description: Optional requester email for audit context.
+    required: false
+  postman-api-key:
+    description: Postman API key.
+    required: true
+  postman-access-token:
+    description: Postman access token.
+    required: false
+  github-token:
+    description: GitHub token used for repo sync writes.
+    required: false
+runs:
+  using: composite
+  steps:
+    - name: Onboard service into Postman
+      uses: postman-cs/postman-api-onboarding-action@v0
+      with:
+        project-name: ${{ inputs.project-name }}
+        spec-url: ${{ inputs.spec-url }}
+        spec-path: ${{ inputs.spec-path }}
+        domain: ${{ inputs.domain }}
+        requester-email: ${{ inputs.requester-email }}
+        postman-api-key: ${{ inputs.postman-api-key }}
+        postman-access-token: ${{ inputs.postman-access-token }}
+        github-token: ${{ inputs.github-token }}
