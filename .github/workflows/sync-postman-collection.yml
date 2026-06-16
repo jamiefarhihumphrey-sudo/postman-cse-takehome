@@ -1,0 +1,63 @@
+name: Sync Postman Collection
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'specs/**'
+      - '.github/workflows/sync-postman-collection.yml'
+
+jobs:
+  build-and-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy local repo assets
+        run: |
+          mkdir -p repo-copy
+          cp -a . repo-copy/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install openapi-to-postman
+        run: npm install -g openapi-to-postmanv2
+
+      - name: Build Postman collection from OpenAPI
+        working-directory: repo-copy
+        run: |
+          openapi2postmanv2 -s specs/claims-processing-api-openapi.yaml -o collection.json -p -O folderStrategy=Tags,includeAuthInfoInExample=false
+
+      - name: Sync collection to Postman
+        working-directory: repo-copy
+        env:
+          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+          POSTMAN_ACCESS_TOKEN: ${{ secrets.POSTMAN_ACCESS_TOKEN }}
+          COLLECTION_NAME: 'Claims Processing API'
+        run: |
+          COLLECTION_FILE=collection.json
+          API_URL="https://api.getpostman.com/collections"
+
+          echo "Checking for existing Postman collection named '$COLLECTION_NAME'..."
+          EXISTING_UID=$(curl -sS -H "X-Api-Key: $POSTMAN_API_KEY" -H "Authorization: Bearer $POSTMAN_ACCESS_TOKEN" "$API_URL" | jq -r --arg NAME "$COLLECTION_NAME" '.collections[] | select(.name == $NAME) | .uid')
+
+          if [ -n "$EXISTING_UID" ] && [ "$EXISTING_UID" != "null" ]; then
+            echo "Updating Postman collection with UID $EXISTING_UID"
+            curl -sS -X PUT "$API_URL/$EXISTING_UID" \
+              -H "X-Api-Key: $POSTMAN_API_KEY" \
+              -H "Authorization: Bearer $POSTMAN_ACCESS_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"collection":'"$(jq -c '.' "$COLLECTION_FILE")"'}'
+          else
+            echo "Creating new Postman collection named '$COLLECTION_NAME'"
+            curl -sS -X POST "$API_URL" \
+              -H "X-Api-Key: $POSTMAN_API_KEY" \
+              -H "Authorization: Bearer $POSTMAN_ACCESS_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"collection":'"$(jq -c '.' "$COLLECTION_FILE")"'}'
+          fi
