@@ -7,8 +7,8 @@ on:
       - 'specs/**'
       - '.github/workflows/sync-postman-collection.yml'
 env:
-  COLLECTION_NAME: 'Claims Processing API' ## what the api is identified as postman side
-  TARGET_SPEC: "claims-processing-api-openapi.yaml" ## what the api is identified as github side
+  COLLECTION_NAME: 'Loan Organization API' ## what the api is identified as postman side
+  TARGET_SPEC: "loan-organization-api-openapi.yaml" ## what the api is identified as github side
   NODE_VERSION: '20'
 ### TO SWAP OUT:
 ### change line 10, COLLECTION_NAME, for new target collection name. (name in postman)
