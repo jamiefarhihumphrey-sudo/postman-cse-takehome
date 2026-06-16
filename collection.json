@@ -1,0 +1,1203 @@
+{
+    "item": [
+        {
+            "name": "Claims",
+            "description": "Claim filing and lifecycle management",
+            "item": [
+                {
+                    "id": "64b57591-d814-4ea1-b715-6abc9374fae9",
+                    "name": "File a new claim",
+                    "request": {
+                        "name": "File a new claim",
+                        "description": {
+                            "content": "Creates a new insurance claim with incident details, policy reference,\nand initial damage assessment. Triggers automated triage and routing.\n\n**Business Rules:**\n- Policy must be active and in good standing\n- Claim must be filed within 90 days of incident date\n- One claim per incident per policy (duplicates rejected)\n",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "claims"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"policyId\": \"<string>\",\n  \"lineOfBusiness\": \"property\",\n  \"incidentDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"estimatedDamage\": \"<double>\",\n  \"claimantContact\": {\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<email>\"\n  }\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "17e162e2-836c-47f7-9c1f-40a595dea5dd",
+                            "name": "Claim filed successfully",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"policyId\": \"<string>\",\n  \"lineOfBusiness\": \"property\",\n  \"incidentDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"estimatedDamage\": \"<double>\",\n  \"claimantContact\": {\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<email>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"id\": \"<string>\",\n  \"policyId\": \"<string>\",\n  \"lineOfBusiness\": \"<string>\",\n  \"status\": \"filed\",\n  \"incidentDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"estimatedDamage\": \"<number>\",\n  \"filedAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"assignedAdjuster\": \"<string>\",\n  \"adjudication\": {\n    \"claimId\": \"<string>\",\n    \"decision\": \"<string>\",\n    \"approvedAmount\": \"<number>\",\n    \"adjudicatedAt\": \"<dateTime>\",\n    \"adjusterNotes\": \"<string>\"\n  },\n  \"settlement\": {\n    \"claimId\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"paymentMethod\": \"<string>\",\n    \"status\": \"processing\",\n    \"initiatedAt\": \"<dateTime>\",\n    \"completedAt\": \"<dateTime>\",\n    \"referenceNumber\": \"<string>\"\n  }\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "390708cd-370e-42e7-ba82-e08f11cef881",
+                            "name": "Invalid claim data",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"policyId\": \"<string>\",\n  \"lineOfBusiness\": \"property\",\n  \"incidentDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"estimatedDamage\": \"<double>\",\n  \"claimantContact\": {\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<email>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {}\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "7146b542-3db8-4e2c-a421-1459f8c5db13",
+                            "name": "Duplicate claim for this incident",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"policyId\": \"<string>\",\n  \"lineOfBusiness\": \"property\",\n  \"incidentDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"estimatedDamage\": \"<double>\",\n  \"claimantContact\": {\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<email>\"\n  }\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "a5acb45a-7dd1-4c67-81a4-c1e5300acf5b",
+                    "name": "List claims",
+                    "request": {
+                        "name": "List claims",
+                        "description": {
+                            "content": "Returns paginated claims with optional filtering by status, line of business, or date range.",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "claims"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": " (This can only be one of filed,triaged,under_investigation,adjudicated,settled,denied,closed)",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "status",
+                                    "value": "settled"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": " (This can only be one of auto,property,liability,workers_comp)",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "lineOfBusiness",
+                                    "value": "liability"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "filedAfter",
+                                    "value": "<date>"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "filedBefore",
+                                    "value": "<date>"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "limit",
+                                    "value": "25"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "offset",
+                                    "value": "0"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "63753d7f-cbbe-48fc-94b3-453fc042e7b5",
+                            "name": "List of claims",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": " (This can only be one of filed,triaged,under_investigation,adjudicated,settled,denied,closed)",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "status",
+                                            "value": "settled"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": " (This can only be one of auto,property,liability,workers_comp)",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "lineOfBusiness",
+                                            "value": "liability"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "filedAfter",
+                                            "value": "<date>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "filedBefore",
+                                            "value": "<date>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "limit",
+                                            "value": "25"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "offset",
+                                            "value": "0"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"policyId\": \"<string>\",\n      \"lineOfBusiness\": \"<string>\",\n      \"status\": \"under_investigation\",\n      \"incidentDate\": \"<date>\",\n      \"description\": \"<string>\",\n      \"estimatedDamage\": \"<number>\",\n      \"filedAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"assignedAdjuster\": \"<string>\",\n      \"adjudication\": {\n        \"claimId\": \"<string>\",\n        \"decision\": \"<string>\",\n        \"approvedAmount\": \"<number>\",\n        \"adjudicatedAt\": \"<dateTime>\",\n        \"adjusterNotes\": \"<string>\"\n      },\n      \"settlement\": {\n        \"claimId\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"paymentMethod\": \"<string>\",\n        \"status\": \"failed\",\n        \"initiatedAt\": \"<dateTime>\",\n        \"completedAt\": \"<dateTime>\",\n        \"referenceNumber\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"policyId\": \"<string>\",\n      \"lineOfBusiness\": \"<string>\",\n      \"status\": \"filed\",\n      \"incidentDate\": \"<date>\",\n      \"description\": \"<string>\",\n      \"estimatedDamage\": \"<number>\",\n      \"filedAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"assignedAdjuster\": \"<string>\",\n      \"adjudication\": {\n        \"claimId\": \"<string>\",\n        \"decision\": \"<string>\",\n        \"approvedAmount\": \"<number>\",\n        \"adjudicatedAt\": \"<dateTime>\",\n        \"adjusterNotes\": \"<string>\"\n      },\n      \"settlement\": {\n        \"claimId\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"paymentMethod\": \"<string>\",\n        \"status\": \"completed\",\n        \"initiatedAt\": \"<dateTime>\",\n        \"completedAt\": \"<dateTime>\",\n        \"referenceNumber\": \"<string>\"\n      }\n    }\n  ],\n  \"total\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "05b93c70-5891-4a60-b4e3-2764e1df2db7",
+                    "name": "Get claim details",
+                    "request": {
+                        "name": "Get claim details",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "claims",
+                                ":claimId"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "type": "any",
+                                    "value": "<string>",
+                                    "key": "claimId",
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    }
+                                }
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "6fe818d4-604e-4222-a48c-2f15b1e50368",
+                            "name": "Claim details",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"id\": \"<string>\",\n  \"policyId\": \"<string>\",\n  \"lineOfBusiness\": \"<string>\",\n  \"status\": \"filed\",\n  \"incidentDate\": \"<date>\",\n  \"description\": \"<string>\",\n  \"estimatedDamage\": \"<number>\",\n  \"filedAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"assignedAdjuster\": \"<string>\",\n  \"adjudication\": {\n    \"claimId\": \"<string>\",\n    \"decision\": \"<string>\",\n    \"approvedAmount\": \"<number>\",\n    \"adjudicatedAt\": \"<dateTime>\",\n    \"adjusterNotes\": \"<string>\"\n  },\n  \"settlement\": {\n    \"claimId\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"paymentMethod\": \"<string>\",\n    \"status\": \"processing\",\n    \"initiatedAt\": \"<dateTime>\",\n    \"completedAt\": \"<dateTime>\",\n    \"referenceNumber\": \"<string>\"\n  }\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "2bb86fc9-8197-441c-82b3-c324ff8f6a3f",
+                            "name": "Claim not found",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Adjudication",
+            "description": "Claim evaluation and decision workflows",
+            "item": [
+                {
+                    "id": "47db5077-3e59-446c-bf04-f289fcac83c7",
+                    "name": "Submit adjudication decision",
+                    "request": {
+                        "name": "Submit adjudication decision",
+                        "description": {
+                            "content": "Records the adjudication decision for a claim. Can be an automated\ndecision from the rules engine or a manual decision from an adjuster.\n",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "claims",
+                                ":claimId",
+                                "adjudicate"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "type": "any",
+                                    "value": "<string>",
+                                    "key": "claimId",
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    }
+                                }
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"decision\": \"approved\",\n  \"approvedAmount\": \"<double>\",\n  \"adjusterNotes\": \"<string>\",\n  \"denialReason\": \"<string>\",\n  \"isAutomated\": false\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "c74da932-268a-4332-a132-5cf7748c6b43",
+                            "name": "Adjudication recorded",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "adjudicate"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"decision\": \"approved\",\n  \"approvedAmount\": \"<double>\",\n  \"adjusterNotes\": \"<string>\",\n  \"denialReason\": \"<string>\",\n  \"isAutomated\": false\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"claimId\": \"<string>\",\n  \"decision\": \"<string>\",\n  \"approvedAmount\": \"<number>\",\n  \"adjudicatedAt\": \"<dateTime>\",\n  \"adjusterNotes\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "aaf74387-a03c-4217-b3f5-5bfd19b5c894",
+                            "name": "Claim not found",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "adjudicate"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"decision\": \"approved\",\n  \"approvedAmount\": \"<double>\",\n  \"adjusterNotes\": \"<string>\",\n  \"denialReason\": \"<string>\",\n  \"isAutomated\": false\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        },
+                        {
+                            "id": "8e80d10b-fec1-49f9-84d5-b627fb8fef29",
+                            "name": "Claim already adjudicated",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "adjudicate"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"decision\": \"approved\",\n  \"approvedAmount\": \"<double>\",\n  \"adjusterNotes\": \"<string>\",\n  \"denialReason\": \"<string>\",\n  \"isAutomated\": false\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Settlements",
+            "description": "Payment and settlement processing",
+            "item": [
+                {
+                    "id": "abdb9eb6-8f58-4beb-b5d4-d7ee08da7575",
+                    "name": "Process claim settlement",
+                    "request": {
+                        "name": "Process claim settlement",
+                        "description": {
+                            "content": "Initiates payment processing for an approved claim.",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "claims",
+                                ":claimId",
+                                "settlement"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "type": "any",
+                                    "value": "<string>",
+                                    "key": "claimId",
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    }
+                                }
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"paymentMethod\": \"check\",\n  \"amount\": \"<double>\",\n  \"payeeName\": \"<string>\",\n  \"payeeAccountId\": \"<string>\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "677b3c91-3b21-4ead-90ba-be6bfe5577a4",
+                            "name": "Settlement initiated",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "settlement"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"paymentMethod\": \"check\",\n  \"amount\": \"<double>\",\n  \"payeeName\": \"<string>\",\n  \"payeeAccountId\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"claimId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"paymentMethod\": \"<string>\",\n  \"status\": \"completed\",\n  \"initiatedAt\": \"<dateTime>\",\n  \"completedAt\": \"<dateTime>\",\n  \"referenceNumber\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "234203dd-f1de-405d-b9a7-8a3ae3d68529",
+                            "name": "Claim not eligible for settlement",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "settlement"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"paymentMethod\": \"check\",\n  \"amount\": \"<double>\",\n  \"payeeName\": \"<string>\",\n  \"payeeAccountId\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        },
+                        {
+                            "id": "a5e6a32e-d13b-43a6-b001-2856eb21c327",
+                            "name": "Claim not found",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "settlement"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"paymentMethod\": \"check\",\n  \"amount\": \"<double>\",\n  \"payeeName\": \"<string>\",\n  \"payeeAccountId\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "c81c17b0-6f4f-4f7b-9278-88a04f59059e",
+                    "name": "Get settlement status",
+                    "request": {
+                        "name": "Get settlement status",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "claims",
+                                ":claimId",
+                                "settlement"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "type": "any",
+                                    "value": "<string>",
+                                    "key": "claimId",
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    }
+                                }
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "f0b33d82-cabd-42ee-86c0-c5c582360028",
+                            "name": "Settlement details",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "settlement"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"claimId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"paymentMethod\": \"<string>\",\n  \"status\": \"completed\",\n  \"initiatedAt\": \"<dateTime>\",\n  \"completedAt\": \"<dateTime>\",\n  \"referenceNumber\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "5efd1904-ea2a-4563-81ae-f9eeb79fa7ce",
+                            "name": "No settlement found for this claim",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "claims",
+                                        ":claimId",
+                                        "settlement"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "type": "any",
+                                            "value": "<string>",
+                                            "key": "claimId"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "header": [],
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health",
+            "description": "Service health checks",
+            "item": [
+                {
+                    "id": "bd527952-ee8d-4e6a-8449-36e18a6ace12",
+                    "name": "Service health check",
+                    "request": {
+                        "name": "Service health check",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "health"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "425fa9ad-1a30-4e8b-be36-d7b05c41df68",
+                            "name": "Service is healthy",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "health"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"status\": \"degraded\",\n  \"version\": \"<string>\",\n  \"uptime\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "apikey",
+        "apikey": [
+            {
+                "type": "any",
+                "value": "X-API-Key",
+                "key": "key"
+            },
+            {
+                "type": "any",
+                "value": "{{apiKey}}",
+                "key": "value"
+            },
+            {
+                "type": "any",
+                "value": "header",
+                "key": "in"
+            }
+        ]
+    },
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://claims-api.example.com/v3"
+        }
+    ],
+    "info": {
+        "_postman_id": "d45bb200-acfd-4376-84d2-c138ad585ea4",
+        "name": "Insurance Platform API - Claims Processing Service",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "API for managing insurance claims from initial filing through adjudication\nand settlement. Handles property, auto, and liability claims across\nmultiple lines of business.\n\n**Authentication:**\n- External integrations: OAuth 2.0 (Bearer token)\n- Internal services: API key (X-API-Key header)\n\n**Rate Limits:**\n- Standard: 150 requests/minute\n- File upload: 20 requests/minute\n\n**Note:** This service runs on a mixed Lambda/ECS infrastructure and uses\nGitLab CI for deployments. CI/CD integration patterns differ from the\nPayments and Lending domains which use GitHub Actions.\n\n\nContact Support:\n Name: Insurance Engineering Team\n Email: insurance-engineering@example.com",
+            "type": "text/plain"
+        }
+    }
+}
