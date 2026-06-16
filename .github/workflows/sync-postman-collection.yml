@@ -9,7 +9,7 @@ on:
 env:
   COLLECTION_NAME: 'Claims Processing API' ## what the api is identified as postman side
   TARGET_SPEC: "claims-processing-api-openapi.yaml" ## what the api is identified as github side
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
 ### TO SWAP OUT:
 ### change line 10, COLLECTION_NAME, for new target collection name. (name in postman)
 ### CHANGE LINE 11, TARGET_SPEC, for new spec file value. (file in specs folder)
