@@ -15,11 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Copy local repo assets
-        run: |
-          mkdir -p repo-copy
-          cp -a . repo-copy/
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -29,12 +24,10 @@ jobs:
         run: npm install -g openapi-to-postmanv2
 
       - name: Build Postman collection from OpenAPI
-        working-directory: repo-copy
         run: |
           openapi2postmanv2 -s specs/claims-processing-api-openapi.yaml -o collection.json -p -O folderStrategy=Tags,includeAuthInfoInExample=false
 
       - name: Sync collection to Postman
-        working-directory: repo-copy
         env:
           POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
           POSTMAN_ACCESS_TOKEN: ${{ secrets.POSTMAN_ACCESS_TOKEN }}
