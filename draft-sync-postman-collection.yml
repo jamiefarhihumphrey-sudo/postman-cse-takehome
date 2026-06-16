@@ -9,12 +9,10 @@ on:
 env:
   COLLECTION_NAME: 'Loan Organization API' ## what the api is identified as postman side
   TARGET_SPEC: "loan-organization-api-openapi.yaml" ## what the api is identified as github side
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
 ### TO SWAP OUT:
 ### change line 10, COLLECTION_NAME, for new target collection name. (name in postman)
 ### CHANGE LINE 11, TARGET_SPEC, for new spec file value. (file in specs folder)
-
-
 
 jobs:
   build-and-sync:
@@ -22,12 +20,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install openapi-to-postman
         run: npm install -g openapi-to-postmanv2
